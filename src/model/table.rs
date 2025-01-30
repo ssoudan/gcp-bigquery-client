@@ -77,8 +77,8 @@ pub struct Table {
     /// [Optional] If set to true, queries over this table require a partition filter that can be used for partition elimination to be specified.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub require_partition_filter: Option<bool>,
-    #[serde(skip_serializing_if = "TableSchema::is_none")]
-    pub schema: TableSchema,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub schema: Option<TableSchema>,
     /// [Output-only] A URL that can be used to access this resource again.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub self_link: Option<String>,
@@ -120,7 +120,7 @@ impl Table {
             num_rows: None,
             range_partitioning: None,
             require_partition_filter: None,
-            schema,
+            schema: Some(schema),
             self_link: None,
             snapshot_definition: None,
             streaming_buffer: None,
